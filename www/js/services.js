@@ -6,7 +6,7 @@ angular.module('app.services', [])
 
   .factory('Day', function (Parse) {
     var Day = Parse.Object.extend('Day');
-    var attributes = ['date', 'times', 'invited', 'accepted', 'pending', 'declined', 'current', 'max', 'status'];
+    var attributes = ['date', 'times', 'invited','name', 'accepted', 'pending', 'declined', 'current', 'max', 'status'];
     Parse.defineAttributes(Day, attributes);
 
     var getDays = function () {

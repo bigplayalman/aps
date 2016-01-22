@@ -1,10 +1,23 @@
 <ion-view title="Create Event Day">
     <ion-content overflow-scroll="true" padding="false" class="has-header">
       <div class="list">
+        <ion-item class="item-input">
+          <input type="text" ng-model="day.name" placeholder="Name of Event">
+        </ion-item>
+        <ion-item class="item-input">
+          <input type="number" ng-model="day.max" placeholder="Slots Available">
+        </ion-item>
         <div class="item">
           <ionic-datepicker input-obj="date">
             <button class="button button-positive button-block"> {{date.inputDate ? (date.inputDate | date:'dd/MM/yyyy') : 'Select Date'}}</button>
           </ionic-datepicker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <button type="submit" class="button button-block button-balanced"
+                  ng-click="createDay()"
+                  ng-disabled="!day.name || !day.max || !day.date">Create</button>
         </div>
       </div>
     </ion-content>

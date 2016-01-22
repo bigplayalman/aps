@@ -18,7 +18,7 @@ angular.module('app.controllers', [])
     }, true);
   })
 
-  .controller('createDayCtrl', function($scope, Day) {
+  .controller('createDayCtrl', function($scope, Day, $filter) {
     $scope.day = {};
     var yesterday = new Date(); // today!
     var day = 1; // go back 5 days!
@@ -42,15 +42,18 @@ angular.module('app.controllers', [])
       dateFormat: 'dd-MM-yyyy', //Optional
       callback: function (val) {  //Mandatory
         $scope.date.inputDate = val;
-        $scope.day.date = $scope.date.inputDate;
-        console.log($scope.day.date);
+        $scope.day.date = $filter('date')(new Date($scope.date.inputDate), 'dd/MM/yyyy');
       }
     };
 
 
     $scope.createDay = function () {
+      $scope.day.status = 'pre-registration';
+      $scope.day.current = 0;
       Day.saveDay($scope.day).then(function (day){
         console.log(day.id);
+        $scope.day = {};
+        $scope.date = {};
       });
     }
   })
@@ -59,7 +62,6 @@ angular.module('app.controllers', [])
     $scope.days =[];
     Day.getDays().then(function(days){
       $scope.days = days;
-      console.log($scope.days);
     });
   })
 
