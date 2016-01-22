@@ -2,6 +2,7 @@ angular.module('app.controllers', [])
 
   .controller('loginCtrl', function($scope, $state, Parse) {
     $scope.user = {};
+    Parse.User.logOut();
     $scope.loginUser = function () {
       Parse.User.logIn($scope.user.username, $scope.user.password, {
         success: function(user) {
@@ -11,7 +12,10 @@ angular.module('app.controllers', [])
           $scope.warning = error.message;
         }
       });
-    }
+    };
+    $scope.$watch('user', function(newVal, oldVal){
+      $scope.warning = null;
+    }, true);
   })
 
   .controller('eventDaysCtrl', function($scope) {

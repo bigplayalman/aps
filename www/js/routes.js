@@ -7,6 +7,7 @@ angular.module('app.routes', [])
   $stateProvider
     .state('login', {
       url: '/login',
+      cache: false,
       data: {
         requireLogin: false
       },
