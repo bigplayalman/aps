@@ -1,22 +1,35 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
-
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
+angular.module('app', [
+  'ionic',
+  'ngCordova',
+  'ngParse',
+  'app.controllers',
+  'app.routes',
+  'app.services',
+  'app.directives'
+])
+  .run(function($rootScope, $state, $ionicPlatform) {
+    $ionicPlatform.ready(function() {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+      if(window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+      }
+    });
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+      var requireLogin = toState.data.requireLogin;
+      if (requireLogin && Parse.User.current() === null) {
+        event.preventDefault();
+        $state.go('login');
+      }
+    });
+  })
+  .config(function($compileProvider){
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|blob):|data:image\//);
+  })
+  .config(['ParseProvider', function(ParseProvider) {
+    ParseProvider.initialize("uUarCCjcopc6COU7kbgwrhqSxOmudmFpHf2MyvKj", "Q8ukJtw1LIVSDmyY2IArCRMOefYaH89xobeirufg");
+  }]);

@@ -1,18 +1,36 @@
-<ion-view title="Login">
-    <ion-content overflow-scroll="true" padding="false" class="has-header">
-        <form class="list">
-            <ion-list>
-                <label class="item item-input">
-                    <span class="input-label">Username</span>
-                    <input type="text" placeholder="">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Password</span>
-                    <input type="password" placeholder="">
-                </label>
-            </ion-list>
-            <div class="spacer" style="height: 40px;"></div>
-            <a href="#/side-menu/days" class="button button-stable button-block ">Log in</a>
-        </form>
-    </ion-content>
+<ion-view hide-nav-bar="true">
+  <ion-content scroll="false" class="login-bg">
+    <section class="login-container">
+
+      <div class="card">
+        <div class="item item-borderless">
+          <img src="./img/logo.png" class = "logo responsive-img" />
+        </div>
+        <div class="item-borderless" ng-show="warning">
+          <div class="row">
+            <div class="col text-center energized-bg assertive">
+              {{warning}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card list padding">
+
+        <ion-item class="item-input">
+          <input type="text" ng-model="user.username" placeholder="username">
+        </ion-item>
+        <ion-item class="item-input">
+          <input type="password" ng-model="user.password" placeholder="password">
+        </ion-item>
+      </div>
+
+      <div class="row">
+        <div class="col text-center">
+          <button type="submit" class="button button-block button-positive" ng-click="loginUser()">Login</button>
+        </div>
+      </div>
+
+    </section>
+  </ion-content>
 </ion-view>

@@ -1,4 +1,12 @@
 {
   "name": "aps",
-  "app_id": "4844caa1"
+  "app_id": "4844caa1",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

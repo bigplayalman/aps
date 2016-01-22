@@ -2,90 +2,103 @@ angular.module('app.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
+  $urlRouterProvider.otherwise('/side-menu/days');
+
   $stateProvider
-    
-      
-    .state('menu', {
-      url: '/side-menu',
-      abstract:true,
-      templateUrl: 'templates/menu.html'
-    })
-      
-    
-      
-        
     .state('login', {
-      url: '/page1',
+      url: '/login',
+      data: {
+        requireLogin: false
+      },
       templateUrl: 'templates/login.html',
       controller: 'loginCtrl'
     })
-        
-      
-    
-      
-        
-    .state('menu.eventDays', {
+
+    .state('menu', {
+      url: '/side-menu',
+      abstract:true,
+      data: {
+        requireLogin: true
+      },
+      templateUrl: 'templates/menu.html'
+    })
+
+    .state('menu.days', {
       url: '/days',
       views: {
-        'side-menu21': {
+        'content': {
           templateUrl: 'templates/eventDays.html',
           controller: 'eventDaysCtrl'
         }
       }
     })
-        
-      
-    
-      
-        
-    .state('groups', {
+
+    .state('menu.groups', {
       url: '/groups',
-      templateUrl: 'templates/groups.html',
-      controller: 'groupsCtrl'
-    })
-        
-      
-    
-      
-        
-    .state('menu.createEventDay', {
-      url: '/create/day',
       views: {
-        'side-menu21': {
+        'content': {
+          template: '<ion-nav-view name="groups"></ion-nav-view>'
+        }
+      }
+    })
+
+    .state('menu.groups.list', {
+      url: '/',
+      views: {
+        'groups': {
+          templateUrl: 'templates/groups.html',
+          controller: 'groupsCtrl'
+        }
+      }
+    })
+
+    .state('menu.groups.group', {
+      url:'/group/:id',
+      abstract: true,
+      views: {
+        'groups': {
+          template: '<ion-nav-view name="group"></ion-nav-view>'
+        }
+      }
+    })
+
+    .state('menu.groups.group.addUsers', {
+      url: '/add-users',
+      views: {
+        'group': {
+          templateUrl: 'templates/addUsers.html',
+          controller: 'addUsersCtrl'
+        }
+      }
+    })
+
+    .state('menu.create', {
+      url: '/create',
+      abstract:true,
+      views: {
+        'content': {
+          template: '<ion-nav-view name="create"></ion-nav-view>'
+        }
+      }
+    })
+
+    .state('menu.create.day', {
+      url: '/day',
+      views: {
+        'create': {
           templateUrl: 'templates/createEventDay.html',
           controller: 'createEventDayCtrl'
         }
       }
     })
-        
-      
-    
-      
-        
-    .state('createGroup', {
-      url: '/create/group',
-      templateUrl: 'templates/createGroup.html',
-      controller: 'createGroupCtrl'
-    })
-        
-      
-    
-      
-        
-    .state('addUsers', {
-      url: '/add-users',
-      templateUrl: 'templates/addUsers.html',
-      controller: 'addUsersCtrl'
-    })
-        
-      
-    ;
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/side-menu/days');
-
+    .state('menu.create.group', {
+      url: '/group',
+      views: {
+        'create': {
+          templateUrl: 'templates/createGroup.html',
+          controller: 'createGroupCtrl'
+        }
+      }
+    });
 });
