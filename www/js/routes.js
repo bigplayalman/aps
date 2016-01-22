@@ -28,8 +28,38 @@ angular.module('app.routes', [])
       url: '/days',
       views: {
         'content': {
-          templateUrl: 'templates/eventDays.html',
-          controller: 'eventDaysCtrl'
+          templateUrl: 'templates/days/day-list.html',
+          controller: 'listDayCtrl'
+        }
+      }
+    })
+
+    .state('menu.create', {
+      url: '/create',
+      abstract:true,
+      views: {
+        'content': {
+          template: '<ion-nav-view name="create"></ion-nav-view>'
+        }
+      }
+    })
+
+    .state('menu.create.day', {
+      url: '/day',
+      views: {
+        'create': {
+          templateUrl: 'templates/create/day.html',
+          controller: 'createDayCtrl'
+        }
+      }
+    })
+
+    .state('menu.create.group', {
+      url: '/group',
+      views: {
+        'create': {
+          templateUrl: 'templates/createGroup.html',
+          controller: 'createGroupCtrl'
         }
       }
     })
@@ -72,34 +102,4 @@ angular.module('app.routes', [])
         }
       }
     })
-
-    .state('menu.create', {
-      url: '/create',
-      abstract:true,
-      views: {
-        'content': {
-          template: '<ion-nav-view name="create"></ion-nav-view>'
-        }
-      }
-    })
-
-    .state('menu.create.day', {
-      url: '/day',
-      views: {
-        'create': {
-          templateUrl: 'templates/createEventDay.html',
-          controller: 'createEventDayCtrl'
-        }
-      }
-    })
-
-    .state('menu.create.group', {
-      url: '/group',
-      views: {
-        'create': {
-          templateUrl: 'templates/createGroup.html',
-          controller: 'createGroupCtrl'
-        }
-      }
-    });
 });

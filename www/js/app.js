@@ -1,5 +1,6 @@
 angular.module('app', [
   'ionic',
+  'ionic-datepicker',
   'ngCordova',
   'ngParse',
   'app.controllers',

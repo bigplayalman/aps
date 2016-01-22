@@ -1,0 +1,11 @@
+<ion-view title="Create Event Day">
+    <ion-content overflow-scroll="true" padding="false" class="has-header">
+      <div class="list">
+        <div class="item">
+          <ionic-datepicker input-obj="date">
+            <button class="button button-positive button-block"> {{date.inputDate ? (date.inputDate | date:'dd/MM/yyyy') : 'Select Date'}}</button>
+          </ionic-datepicker>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>
