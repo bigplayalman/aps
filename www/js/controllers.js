@@ -35,8 +35,8 @@ angular.module('app.controllers', [])
       mondayFirst: true,  //Optional
       templateType: 'modal', //Optional
       showTodayButton: true, //Optional
-      modalHeaderColor: 'bar-positive', //Optional
-      modalFooterColor: 'bar-positive', //Optional
+      modalHeaderColor: 'bar-calm', //Optional
+      modalFooterColor: 'bar-calm', //Optional
       from: yesterday, //Optional
       to: nextYear,  //Optional
       dateFormat: 'dd-MM-yyyy', //Optional
@@ -63,6 +63,40 @@ angular.module('app.controllers', [])
     Day.getDays().then(function(days){
       $scope.days = days;
     });
+  })
+  .controller('detailDayCtrl', function($scope, $filter, $stateParams, Day) {
+    var yesterday = new Date(); // today!
+    var day = 1; // go back 5 days!
+    yesterday.setDate(yesterday.getDate() - day);
+    var nextYear = new Date();
+    var year = 365; // go back 5 days!
+    nextYear.setDate(nextYear.getDate() + year);
+
+    $scope.day = {};
+    var id = $stateParams.id;
+    Day.getDay(id).then(function (day) {
+      $scope.day = day;
+    });
+
+    $scope.pickerDate = {
+      closeLabel: 'Close',  //Optional
+      setButtonType : 'button-assertive',  //Optional
+      todayButtonType : 'button-assertive',  //Optional
+      closeButtonType : 'button-assertive',  //Optional
+      mondayFirst: true,  //Optional
+      templateType: 'modal', //Optional
+      showTodayButton: false, //Optional
+      modalHeaderColor: 'bar-calm', //Optional
+      modalFooterColor: 'bar-calm', //Optional
+      from: yesterday, //Optional
+      to: nextYear,  //Optional
+      dateFormat: 'dd-MM-yyyy', //Optional
+      callback: function (val) {  //Mandatory
+        $scope.pickerDate.inputDate = val;
+        $scope.day.date = $filter('date')(new Date($scope.pickerDate.inputDate), 'dd/MM/yyyy');
+      }
+    };
+
   })
 
   .controller('groupsCtrl', function($scope) {

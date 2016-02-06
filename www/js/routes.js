@@ -2,7 +2,7 @@ angular.module('app.routes', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/side-menu/days');
+  $urlRouterProvider.otherwise('/app/day/list');
 
   $stateProvider
     .state('login', {
@@ -16,7 +16,7 @@ angular.module('app.routes', [])
     })
 
     .state('menu', {
-      url: '/side-menu',
+      url: '/app',
       abstract:true,
       data: {
         requireLogin: true
@@ -24,10 +24,29 @@ angular.module('app.routes', [])
       templateUrl: 'templates/menu.html'
     })
 
-    .state('menu.days', {
-      url: '/days',
+    .state('menu.day', {
+      url: '/day',
+      abstract: true,
       views: {
         'content': {
+          template: '<ion-nav-view name="day"></ion-nav-view>'
+        }
+      }
+    })
+    .state('menu.day.id', {
+      url: '/:id/detail',
+      views: {
+        'day': {
+          templateUrl: 'templates/days/day-detail.html',
+          controller: 'detailDayCtrl'
+        }
+      }
+    })
+
+    .state('menu.day.list', {
+      url: '/list',
+      views: {
+        'day': {
           templateUrl: 'templates/days/day-list.html',
           controller: 'listDayCtrl'
         }
