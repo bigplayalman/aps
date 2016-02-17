@@ -26,6 +26,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 .login-container {
   padding-top: 40px;
+  max-width: 400px;
+  margin: 0 auto;
 }
 .login-bg {
   background: url(../img/login-bg.jpg) no-repeat center center fixed;

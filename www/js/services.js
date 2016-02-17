@@ -3,7 +3,20 @@ angular.module('app.services', [])
 .factory('User', [function(){
 
 }])
+  .service('DayServices', function () {
+    var day = {};
+    var setDay = function (data) {
+      day = data;
+    };
+    var getDay = function () {
+      return day;
+    };
 
+    return {
+      setDay: setDay,
+      getDay: getDay
+    }
+  })
   .factory('Day', function (Parse) {
     var Day = Parse.Object.extend('Day');
     var attributes = ['date', 'times', 'invited','name', 'accepted', 'pending', 'declined', 'current', 'max', 'status'];
@@ -15,6 +28,7 @@ angular.module('app.services', [])
     };
 
     var getDays = function () {
+      var user = Parse.User.current();
       var query = new Parse.Query(Day);
       return query.find();
     };

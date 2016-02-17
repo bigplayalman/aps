@@ -2,6 +2,7 @@ angular.module('app.controllers.user', [])
 
   .controller('app.controllers.user.day.list', function($scope, Day) {
     $scope.days =[];
+
     Day.getDays().then(function(days){
       $scope.days = days;
     });

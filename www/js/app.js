@@ -1,6 +1,6 @@
 angular.module('app', [
   'ionic',
-  'ionic-datepicker',
+  'onezone-datepicker',
   'ngCordova',
   'ngParse',
   'app.controllers',

@@ -42,6 +42,7 @@ angular.module('app.routes', [])
     })
     .state('user.day.list', {
       url: '/list',
+      cache: 'false',
       views: {
         'day': {
           templateUrl: 'templates/user/days/day-list.html',
@@ -75,11 +76,26 @@ angular.module('app.routes', [])
           templateUrl: 'templates/admin/days/day-detail.html',
           controller: 'detailDayCtrl'
         }
+      },
+      resolve: {
+        date: function ($stateParams, $q, Day, DayServices) {
+          var cb = $q.defer();
+          var id = $stateParams.id;
+          Day.getDay(id).then(function (day) {
+            DayServices.setDay(day);
+            cb.resolve();
+          },
+          function (err) {
+            cb.reject(err);
+          });
+          return cb.promise;
+        }
       }
     })
 
     .state('admin.day.list', {
       url: '/list',
+      cache: 'false',
       views: {
         'day': {
           templateUrl: 'templates/admin/days/day-list.html',

@@ -1,28 +1,32 @@
 angular.module('app.controllers.admin', [])
   .controller('createDayCtrl', function($scope, Day, $filter) {
     $scope.day = {};
-    var yesterday = new Date(); // today!
-    var day = 1; // go back 5 days!
+    var yesterday = new Date();
+    var day = 1;
     yesterday.setDate(yesterday.getDate() - day);
     var nextYear = new Date();
-    var year = 365; // go back 5 days!
+    var year = 365;
     nextYear.setDate(nextYear.getDate() + year);
 
-    $scope.date = {
-      closeLabel: 'Close',  //Optional
-      mondayFirst: true,  //Optional
-      templateType: 'modal', //Optional
-      showTodayButton: true, //Optional
-      modalHeaderColor: 'bar-calm', //Optional
-      modalFooterColor: 'bar-calm', //Optional
-      from: yesterday, //Optional
-      to: nextYear,  //Optional
-      dateFormat: 'dd-MM-yyyy', //Optional
-      callback: function (val) {  //Mandatory
-        $scope.date.inputDate = val;
-        $scope.day.date = $filter('date')(new Date($scope.date.inputDate), 'dd/MM/yyyy');
+    $scope.datepicker = {
+      date: new Date(), // MANDATORY
+      mondayFirst: false,
+      startDate: yesterday,
+      endDate: nextYear,
+      disablePastDays: true,
+      disableSwipe: false,
+      disableWeekend: false,
+      showDatepicker: false,
+      showTodayButton: true,
+      calendarMode: false,
+      hideCancelButton: true,
+      hideSetButton: true,
+      callback: function(value){
+        $scope.datepicker.date = value;
+        $scope.day.date = value;
       }
     };
+
     $scope.createDay = function () {
       $scope.day.status = 'pre-registration';
       $scope.day.current = 0;
@@ -39,36 +43,32 @@ angular.module('app.controllers.admin', [])
       $scope.days = days;
     });
   })
-  .controller('detailDayCtrl', function($scope, $filter, $stateParams, Day) {
-    var yesterday = new Date(); // today!
-    var day = 1; // go back 5 days!
+  .controller('detailDayCtrl', function($scope, $filter, $stateParams, Day, DayServices) {
+    var yesterday = new Date();
+    var day = 1;
     yesterday.setDate(yesterday.getDate() - day);
     var nextYear = new Date();
-    var year = 365; // go back 5 days!
+    var year = 365;
     nextYear.setDate(nextYear.getDate() + year);
 
-    $scope.day = {};
-    var id = $stateParams.id;
-    Day.getDay(id).then(function (day) {
-      $scope.day = day;
-    });
+    $scope.day = DayServices.getDay();
 
-    $scope.pickerDate = {
-      closeLabel: 'Close',  //Optional
-      setButtonType : 'button-assertive',  //Optional
-      todayButtonType : 'button-assertive',  //Optional
-      closeButtonType : 'button-assertive',  //Optional
-      mondayFirst: true,  //Optional
-      templateType: 'modal', //Optional
-      showTodayButton: false, //Optional
-      modalHeaderColor: 'bar-calm', //Optional
-      modalFooterColor: 'bar-calm', //Optional
-      from: yesterday, //Optional
-      to: nextYear,  //Optional
-      dateFormat: 'dd-MM-yyyy', //Optional
-      callback: function (val) {  //Mandatory
-        $scope.pickerDate.inputDate = val;
-        $scope.day.date = $filter('date')(new Date($scope.pickerDate.inputDate), 'dd/MM/yyyy');
+    $scope.datepicker = {
+      date: new Date($scope.day.date), // MANDATORY
+      mondayFirst: false,
+      startDate: yesterday,
+      endDate: nextYear,
+      disablePastDays: true,
+      disableSwipe: false,
+      disableWeekend: false,
+      showDatepicker: false,
+      showTodayButton: true,
+      calendarMode: false,
+      hideCancelButton: true,
+      hideSetButton: true,
+      callback: function(value){
+        $scope.datepicker.date = value;
+        $scope.day.date = value;
         Day.saveDay($scope.day);
       }
     };

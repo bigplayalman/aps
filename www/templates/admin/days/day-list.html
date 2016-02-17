@@ -3,7 +3,7 @@
         <ion-list ng-show="days.length > 0">
             <ion-item ng-repeat="day in days" ui-sref="admin.day.id({id:day.id})">
               {{day.name}}<br>
-              {{day.date}} | Slots: {{day.current}}/{{day.max}}
+              {{day.date | date:'dd/MM/yyyy'}} | Slots: {{day.current}}/{{day.max}}
               <span class="item-note">{{day.status}}</span>
             </ion-item>
         </ion-list>

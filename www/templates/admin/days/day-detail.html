@@ -4,11 +4,12 @@
           <ion-item class="item-divider">
             Name: {{day.name}}
           </ion-item>
-          <ion-item class="item-button-right">
-            {{day.date}}
-            <ionic-datepicker input-obj="pickerDate" class="button button-calm">
-              <i class="icon ion-android-calendar"></i>
-            </ionic-datepicker>
+          <ion-item>
+            <onezone-datepicker datepicker-object="datepicker">
+              <button class="button button-outline button-block button-positive show-onezone-datepicker">
+                <i class="icon ion-android-calendar"></i> {{day.date | date:'dd/MM/yyyy'}}
+              </button>
+            </onezone-datepicker>
           </ion-item>
 
         </ion-list>
