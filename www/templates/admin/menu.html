@@ -12,12 +12,15 @@
         <ion-header-bar class="bar-calm" align-title="center">
             <div class="title">Menu</div>
         </ion-header-bar>
-        <ion-content padding="false" class="side-menu-left has-header">
+        <ion-content padding="false" class="side-menu-left has-header has-footer">
             <ion-list>
-                <ion-item ui-sref="menu.day.list" menu-close="">Day List</ion-item>
-                <ion-item ui-sref="menu.create.day" menu-close="">Create Event Day</ion-item>
+                <ion-item ui-sref="admin.day.list" menu-close="">Day List</ion-item>
+                <ion-item ui-sref="admin.create.day" menu-close="">Create Event Day</ion-item>
                 <ion-item ui-sref="login" menu-close="">Log Out</ion-item>
             </ion-list>
         </ion-content>
+      <ion-footer-bar class="bar-calm">
+        {{user.username}}
+      </ion-footer-bar>
     </ion-side-menu>
 </ion-side-menus>
