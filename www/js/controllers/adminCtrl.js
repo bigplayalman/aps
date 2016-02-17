@@ -1,5 +1,12 @@
-angular.module('app.controllers.admin', [])
-  .controller('createDayCtrl', function($scope, Day, $filter) {
+angular.module('admin.controllers', [])
+
+  .controller('admin.controllers.menu.ctrl', function($scope, $state, Parse) {
+    $scope.user = Parse.User.current();
+  })
+
+  .controller('admin.controllers.day.create.ctrl', function($scope, $state, Day) {
+    $scope.title = 'Create Day';
+
     $scope.day = {};
     var yesterday = new Date();
     var day = 1;
@@ -27,23 +34,17 @@ angular.module('app.controllers.admin', [])
       }
     };
 
-    $scope.createDay = function () {
+    $scope.actionButton = function () {
       $scope.day.status = 'pre-registration';
       $scope.day.current = 0;
       Day.saveDay($scope.day).then(function (day){
-        $scope.day = {};
-        $scope.date = {};
+        $state.go('admin.day.list');
       });
     }
   })
 
-  .controller('listDayCtrl', function($scope, Day) {
-    $scope.days =[];
-    Day.getDays().then(function(days){
-      $scope.days = days;
-    });
-  })
-  .controller('detailDayCtrl', function($scope, $filter, $stateParams, Day, DayServices) {
+  .controller('admin.controllers.edit.ctrl', function($scope, $state, Day, DayServices) {
+    $scope.title = 'Update Day';
     var yesterday = new Date();
     var day = 1;
     yesterday.setDate(yesterday.getDate() - day);
@@ -73,16 +74,19 @@ angular.module('app.controllers.admin', [])
       }
     };
 
+    $scope.actionButton = function () {
+      Day.saveDay($scope.day).then(function (day){
+        $state.go('admin.day.detail', {id: day.id});
+      });
+    }
   })
 
-  .controller('groupsCtrl', function($scope) {
-
+  .controller('admin.controllers.day.list.ctrl', function($scope, Day) {
+    $scope.days =[];
+    Day.getDays().then(function(days){
+      $scope.days = days;
+    });
   })
-
-  .controller('createGroupCtrl', function($scope) {
-
-  })
-
-  .controller('addUsersCtrl', function($scope) {
-
+  .controller('admin.controllers.day.detail.ctrl', function($scope, $filter, $stateParams, Day, DayServices) {
+    $scope.day = DayServices.getDay();
   });

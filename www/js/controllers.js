@@ -1,10 +1,7 @@
 angular.module('app.controllers', [
-  'app.controllers.admin',
-  'app.controllers.user'
+  'admin.controllers',
+  'user.controllers'
 ])
-  .controller('menuCtrl', function($scope, $state, Parse) {
-    $scope.user = Parse.User.current();
-  })
   .controller('loginCtrl', function($scope, $state, Parse) {
     $scope.user = {};
     Parse.User.logOut();

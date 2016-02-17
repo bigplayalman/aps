@@ -1,6 +1,10 @@
-angular.module('app.controllers.user', [])
+angular.module('user.controllers', [])
 
-  .controller('app.controllers.user.day.list', function($scope, Day) {
+  .controller('user.controllers.menu.ctrl', function($scope, $state, Parse) {
+    $scope.user = Parse.User.current();
+  })
+
+  .controller('user.controllers.day.list.ctrl', function($scope, Day) {
     $scope.days =[];
 
     Day.getDays().then(function(days){
@@ -8,7 +12,7 @@ angular.module('app.controllers.user', [])
     });
   })
 
-  .controller('app.controllers.user.day.detail', function($scope, $filter, $stateParams, Day) {
+  .controller('user.controllers.day.detail.ctrl', function($scope, $filter, $stateParams, Day) {
     $scope.attendee = {};
     $scope.day = {};
     var id = $stateParams.id;

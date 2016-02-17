@@ -1,4 +1,4 @@
-<ion-view title="Create Event Day">
+<ion-view title="{{title}}">
     <ion-content overflow-scroll="true" padding="false" class="has-header">
       <div class="list">
         <ion-item class="item-input">
@@ -17,9 +17,11 @@
       </div>
       <div class="row">
         <div class="col text-center">
-          <button type="submit" class="button button-block button-balanced"
-                  ng-click="createDay()"
-                  ng-disabled="!day.name || !day.max || !day.date">Create</button>
+          <button
+            type="submit"
+            class="button button-block button-balanced"
+            ng-click="actionButton()"
+            ng-disabled="!day.name || !day.max || !day.date">{{title}}</button>
         </div>
       </div>
     </ion-content>

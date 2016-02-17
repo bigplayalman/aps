@@ -19,7 +19,7 @@ angular.module('app.routes', [])
         requireLogin: true
       },
       templateUrl: 'templates/user/menu.html',
-      controller: 'menuCtrl'
+      controller: 'user.controllers.menu.ctrl'
     })
     .state('user.day', {
       url: '/day',
@@ -31,12 +31,12 @@ angular.module('app.routes', [])
       }
     })
 
-    .state('user.day.id', {
+    .state('user.day.detail', {
       url: '/:id/detail',
       views: {
         'day': {
           templateUrl: 'templates/user/days/day-detail.html',
-          controller: 'app.controllers.user.day.detail'
+          controller: 'user.controllers.day.detail.ctrl'
         }
       }
     })
@@ -46,10 +46,12 @@ angular.module('app.routes', [])
       views: {
         'day': {
           templateUrl: 'templates/user/days/day-list.html',
-          controller: 'app.controllers.user.day.list'
+          controller: 'user.controllers.day.list.ctrl'
         }
       }
     })
+
+
     .state('admin', {
       url: '/app',
       abstract:true,
@@ -57,7 +59,7 @@ angular.module('app.routes', [])
         requireLogin: true
       },
       templateUrl: 'templates/admin/menu.html',
-      controller: 'menuCtrl'
+      controller: 'admin.controllers.menu.ctrl'
     })
 
     .state('admin.day', {
@@ -69,12 +71,44 @@ angular.module('app.routes', [])
         }
       }
     })
-    .state('admin.day.id', {
+    .state('admin.day.create', {
+      url: '/create',
+      views: {
+        'day': {
+          templateUrl: 'templates/admin/days/day.html',
+          controller: 'admin.controllers.day.create.ctrl'
+        }
+      }
+    })
+    .state('admin.day.edit', {
+      url: '/:id/edit',
+      views: {
+        'day': {
+          templateUrl: 'templates/admin/days/day.html',
+          controller: 'admin.controllers.edit.ctrl'
+        }
+      },
+      resolve: {
+        date: function ($stateParams, $q, Day, DayServices) {
+          var cb = $q.defer();
+          var id = $stateParams.id;
+          Day.getDay(id).then(function (day) {
+              DayServices.setDay(day);
+              cb.resolve();
+            },
+            function (err) {
+              cb.reject(err);
+            });
+          return cb.promise;
+        }
+      }
+    })
+    .state('admin.day.detail', {
       url: '/:id/detail',
       views: {
         'day': {
           templateUrl: 'templates/admin/days/day-detail.html',
-          controller: 'detailDayCtrl'
+          controller: 'admin.controllers.day.detail.ctrl'
         }
       },
       resolve: {
@@ -93,82 +127,13 @@ angular.module('app.routes', [])
       }
     })
 
-    .state('admin.day.list', {
+    .state('admin.list', {
       url: '/list',
-      cache: 'false',
+      cache: false,
       views: {
-        'day': {
+        'content': {
           templateUrl: 'templates/admin/days/day-list.html',
-          controller: 'listDayCtrl'
-        }
-      }
-    })
-
-    .state('admin.create', {
-      url: '/create',
-      abstract:true,
-      views: {
-        'content': {
-          template: '<ion-nav-view name="create"></ion-nav-view>'
-        }
-      }
-    })
-
-    .state('admin.create.day', {
-      url: '/day',
-      views: {
-        'create': {
-          templateUrl: 'templates/admin/create/day.html',
-          controller: 'createDayCtrl'
-        }
-      }
-    })
-
-    .state('admin.create.group', {
-      url: '/group',
-      views: {
-        'create': {
-          templateUrl: 'templates/admin/createGroup.html',
-          controller: 'createGroupCtrl'
-        }
-      }
-    })
-
-    .state('admin.groups', {
-      url: '/groups',
-      views: {
-        'content': {
-          template: '<ion-nav-view name="groups"></ion-nav-view>'
-        }
-      }
-    })
-
-    .state('admin.groups.list', {
-      url: '/',
-      views: {
-        'groups': {
-          templateUrl: 'templates/admin/groups.html',
-          controller: 'groupsCtrl'
-        }
-      }
-    })
-
-    .state('admin.groups.group', {
-      url:'/group/:id',
-      abstract: true,
-      views: {
-        'groups': {
-          template: '<ion-nav-view name="group"></ion-nav-view>'
-        }
-      }
-    })
-
-    .state('admin.groups.group.addUsers', {
-      url: '/add-users',
-      views: {
-        'group': {
-          templateUrl: 'templates/admin/addUsers.html',
-          controller: 'addUsersCtrl'
+          controller: 'admin.controllers.day.list.ctrl'
         }
       }
     })
