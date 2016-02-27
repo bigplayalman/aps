@@ -1,0 +1,39 @@
+<ion-view title="{{title}} User">
+    <ion-content overflow-scroll="true" padding="false" class="has-header has-footer">
+
+      <form class="list">
+
+          <label class="item item-input">
+            <input type="text" ng-model="user.firstName" placeholder="First Name">
+          </label>
+
+          <label class="item item-input">
+            <input type="text" ng-model="user.lastName" placeholder="Last Name">
+          </label>
+
+          <label class="item item-input">
+            <input type="email" ng-model="user.email" placeholder="email">
+          </label>
+
+          <label class="item item-input">
+            <input type="tel" ng-model="user.phone" placeholder="phone">
+          </label>
+
+          <ion-item class="item-divider">Type of User</ion-item>
+
+          <ion-radio name="type" ng-model="user.type" ng-value="'user'">
+            User
+          </ion-radio>
+          <ion-radio name="type" ng-model="user.type" ng-value="'admin'">
+            Admin
+          </ion-radio>
+        </form>
+    </ion-content>
+
+  <div class="bar bar-footer row-no-padding">
+    <div class="button-bar">
+      <button type="reset" class="button button-calm">Reset</button>
+      <button type="submit" class="button button-balanced" ng-click="updateUser()">{{title}}</button>
+    </div>
+  </div>
+</ion-view>

@@ -9,7 +9,7 @@ angular.module('app.controllers', [
       Parse.User.logIn($scope.user.username, $scope.user.password, {
         success: function(user) {
           if(user.get('type') === 'admin') {
-            $state.go('admin.day.list');
+            $state.go('admin.list');
           } else {
             $state.go('user.day.list');
           }

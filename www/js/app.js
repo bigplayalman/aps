@@ -6,7 +6,8 @@ angular.module('app', [
   'app.controllers',
   'app.routes',
   'app.services',
-  'app.directives'
+  'app.directives',
+  'onog.filters'
 ])
   .run(function($rootScope, $state, $ionicPlatform) {
     $ionicPlatform.ready(function() {

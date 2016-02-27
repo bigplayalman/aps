@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "parse": "~1.6.13",
-    "ionic-datepicker": "~0.9.0",
     "onezone-datepicker": "*"
   }
 }

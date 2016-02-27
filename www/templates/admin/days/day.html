@@ -8,11 +8,9 @@
           <input type="number" ng-model="day.max" placeholder="Slots Available">
         </ion-item>
         <div class="item">
-          <onezone-datepicker datepicker-object="datepicker">
-            <button class="button button-block button-outline button-positive show-onezone-datepicker">
-              {{datepicker.date | date:'dd MMMM yyyy'}}
-            </button>
-          </onezone-datepicker>
+          <button class="button button-block button-outline button-positive" ng-click="showDatepicker()">
+            {{(day.date | date:'dd MMMM yyyy') || 'Select Date'}}
+          </button>
         </div>
       </div>
       <div class="row">

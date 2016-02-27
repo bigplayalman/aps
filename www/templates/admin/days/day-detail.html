@@ -1,5 +1,5 @@
 <ion-view title="Event Detail">
-  <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+  <ion-nav-bar class="bar-calm nav-title-slide-ios7">
     <ion-nav-back-button class="button button-clear button-positive">
       Back
     </ion-nav-back-button>
@@ -13,7 +13,20 @@
     <ion-list>
       <ion-item class="item-button-right">
         <strong>Name:</strong> {{day.name}}
+        <button class="button button-assertive" ng-click="deleteDate()"><i class="icon ion-android-delete"></i></button>
       </ion-item>
+
+      <ion-item class="item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="time" placeholder="Email" ng-model="time.input">
+        </label>
+        <a class="button button-small button-calm" ng-click="addTime()" ng-disabled="!time.input">
+          Add Call Time
+        </a>
+      </ion-item>
+
+      <ion-item ng-repeat="times in day.callTimes" ng-show="day.callTimes.length > 0">{{times}}</ion-item>
+
     </ion-list>
   </ion-content>
 </ion-view>

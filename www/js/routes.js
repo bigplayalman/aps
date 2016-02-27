@@ -62,6 +62,39 @@ angular.module('app.routes', [])
       controller: 'admin.controllers.menu.ctrl'
     })
 
+    //end of user
+
+    //start of admin
+
+    .state('admin.user', {
+      url: '/user',
+      abstract: true,
+      views: {
+        'content': {
+          template: '<ion-nav-view name="user"></ion-nav-view>'
+        }
+      }
+    })
+
+    .state('admin.user.create', {
+      url: '/create',
+      views: {
+        'user': {
+          templateUrl: 'templates/admin/users/user.html',
+          controller: 'admin.controllers.user.create.ctrl'
+        }
+      }
+    })
+    .state('admin.user.list', {
+      url: '/list',
+      views: {
+        'user': {
+          templateUrl: 'templates/admin/users/user-list.html',
+          controller: 'admin.controllers.user.list.ctrl'
+        }
+      }
+    })
+
     .state('admin.day', {
       url: '/day',
       abstract: true,
@@ -85,7 +118,7 @@ angular.module('app.routes', [])
       views: {
         'day': {
           templateUrl: 'templates/admin/days/day.html',
-          controller: 'admin.controllers.edit.ctrl'
+          controller: 'admin.controllers.day.edit.ctrl'
         }
       },
       resolve: {
